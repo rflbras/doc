@@ -3,6 +3,9 @@ require 'net/ftp/list'
 require 'tempfile'
 require 'tmpdir'
 require 'timeout'
+require 'fileutils'
+
+include FileUtils
 
 module Doc
   class Configurator
@@ -57,7 +60,8 @@ module Doc
 
                     children = FSPath(d).children
                     if children.length == 1
-                      children.first.rename(dir)
+                      mv(children.first, dir)
+                      # children.first.rename(dir)
                     else
                       dir.mkpath
                       FileUtils.mv children, dir
@@ -107,7 +111,8 @@ module Doc
           Tempfile.open 'ruby' do |f|
             path = FSPath(f.path)
             yield path
-            path.rename(dst)
+            mv(path, dst)
+            # path.rename(dst)
           end
         end
 
@@ -125,7 +130,9 @@ module Doc
               Dir.mktmpdir 'ruby' do |d|
                 tmp_dir = FSPath(d) / tag_version.dir_name
                 if yield(tmp_dir, tag_version)
-                  tmp_dir.rename(sources_dir / tag_version.dir_name)
+                  #`mv #{tmp_dir} #{sources_dir / tag_version.dir_name}`
+                  mv(tmp_dir, sources_dir / tag_version.dir_name)
+                  # tmp_dir.rename(sources_dir / tag_version.dir_name)
                 end
               end
             end
