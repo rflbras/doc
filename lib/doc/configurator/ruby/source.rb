@@ -151,7 +151,7 @@ module Doc
         SVN_TAG_LIST_COMMAND = "svn list --non-interactive #{SVN_TAGS_URL}"
         SVN_TAG_REGEXP = /^(v\d+(?:_\d+){3})\/$/
         GIT_BARE_URL = 'github.com/ruby/ruby'
-        GIT_URL = "git://#{GIT_BARE_URL}.git"
+        GIT_URL = "https://#{GIT_BARE_URL}.git"
         GIT_TAG_LIST_COMMAND = "git ls-remote -t #{GIT_URL}"
         GIT_TAG_REGEXP = /^.*\t(refs\/tags\/v\d+(?:_\d+){3})$/
 
